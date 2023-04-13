@@ -6,14 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <title>Bate-papo UOL</title>
 </head>
 <body>
     <div class="login">
-        <img src="./images/logo2.svg" alt="logoUOL">
+        <img class="logo" src="./images/logo2.svg" alt="logoUOL">
         <div class="acess">
             <input type="text" id="nickname" placeholder="Digite seu nome" >
             <button disabled="disabled" id="acessChat" onclick="acessChat()">Entrar</button>
+        </div>
+
+        <div class="waiting">
+            <img src="./images/vecteezy_loading-circle-icon-loading-gif-loading-screen-gif-loading_8174706_448.gif" alt="">
+            <h2>Entrando...</h2>
         </div>
     </div>
 

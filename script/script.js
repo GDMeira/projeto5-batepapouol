@@ -37,6 +37,7 @@ function acessChat() {
     const response = axios.post('https://mock-api.driven.com.br/api/vm/uol/participants', objNickname);
     response.then(closeLogin);
     response.catch(connectionError);
+    waitingResponse();
 }
 
 function closeLogin() {
@@ -49,6 +50,8 @@ function connectionError(error) {
     console.log(error);
     alert(`code ${error.response.status} \n${error.response.statusText}`);
     document.querySelector('.login').style.display = 'flex';
+    document.querySelector('.acess').style.display = 'flex';
+    document.querySelector('.waiting').style.display = 'none';
 
     if (idStayOnline !== -1) {
         clearInterval(idStayOnline);
@@ -59,4 +62,9 @@ function stayOnline() {
     const objNickname = {name: nickname};
     const response = axios.post('https://mock-api.driven.com.br/api/vm/uol/status', objNickname);
     response.catch(connectionError);
+}
+
+function waitingResponse() {
+    document.querySelector('.acess').style.display = 'none';
+    document.querySelector('.waiting').style.display = 'flex';
 }

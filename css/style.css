@@ -1,3 +1,7 @@
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
 .login {
     position: fixed;
     top: 0;
@@ -12,7 +16,7 @@
     align-items: center;
 }
 
-.login img {
+.login .logo {
     margin: 75px;
 }
 
@@ -20,11 +24,28 @@
     margin: 7px;
 }
 
-.acess {
+.waiting img {
+    width: 200px;
+}
+
+.waiting * {
+    margin: 7px;
+}
+
+.waiting h2 {
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.login div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.login .waiting {
+    display: none;
 }
 
 .acess input {
@@ -33,6 +54,8 @@
     text-align: center;
     border: 1px #d7d7d7 solid;
     border-radius: 4px;
+    font-weight: 400;
+    font-size: 18px;
 }
 
 .acess button {
@@ -40,6 +63,8 @@
     height: 45px;
     background-color: #e7e7e7;
     border-radius: 9px;
+    font-weight: 400;
+    font-size: 18px;
 }
 
 header {
