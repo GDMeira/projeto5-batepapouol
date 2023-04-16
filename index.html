@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,100&display=swap" rel="stylesheet">
     <title>Bate-papo UOL</title>
 </head>
 <body>
@@ -25,21 +27,52 @@
         </div>
     </div>
 
+    <div class="container-side-bar-menu">
+        <div class="close" onclick="closeSideBar()"></div>
+        <div class="side-bar-menu slide-left">
+            <h2>Escolha um contato para enviar mensagem:</h2>
+            <ul>
+
+            </ul>
+
+            <h2>Escolha a visibilidade:</h2>
+            <ul>
+                <li class="selectedType" onclick="selectType(this)">
+                    <ion-icon name="lock-open"></ion-icon>
+                    <h3>Público</h3>
+                    <ion-icon name="checkmark-outline" class="check"></ion-icon>
+                </li>
+                <li onclick="selectType(this)">
+                    <ion-icon name="lock-closed"></ion-icon>
+                    <h3>Reservadamente</h3>
+                    <ion-icon name="checkmark-outline" class="check"></ion-icon>
+                </li>
+            </ul>
+        </div>
+    </div>
+
     <header>
         <img src="./images/logo2.svg" alt="logoUOL">
-        <ion-icon name="people"></ion-icon>
+        <ion-icon name="people" onclick="showSideBarMenu()"></ion-icon>
     </header>
 
     <main>
+        <ul>
 
+        </ul>
     </main>
 
     <footer>
-
+        <div class="texts">
+            <input id="message" type="text" placeholder="Escreva aqui...">
+            <h3>Enviando para </h3>
+        </div>
+        <ion-icon name="paper-plane-outline" onclick="sendMessage()"></ion-icon>
     </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="./script/script.js"></script>
 </body>
 </html>
