@@ -213,10 +213,12 @@ function sendMessage() {
         text: textMessage,
         type: messageType
     }
-    console.log(message);
 
     const promise = axios.post('https://mock-api.driven.com.br/api/vm/uol/messages', message);
-    promise.then(() => document.body.querySelector("#message").value = '');
+    promise.then(() => {
+                        document.body.querySelector("#message").value = '';
+                        getMessages();
+                        });
     promise.catch(error => {
                             alert(`Não foi possível enviar a mensagens.
                                  \n status ${error.response.status}\n 
