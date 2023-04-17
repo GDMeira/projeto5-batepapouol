@@ -1,7 +1,7 @@
 //initial configs
 axios.defaults.headers.common['Authorization'] = 'Vak8ZeLiKi68KIDffThdHIKq';
 
-document.body.querySelector("#nickname").addEventListener(".login input", checkNickname);
+document.body.querySelector("#nickname").addEventListener("input", checkNickname);
 let nickname = '';
 let idStayOnline = -1;
 let idRenderMessages = -1;
@@ -109,7 +109,7 @@ function renderMessages() {
                 </p>
             </li>
             `;
-        } else {
+        } else if (message.to === nickname || message.from === nickname) {
             containerMessages.innerHTML += `
             <li data-test="message">
             <p class="container-message">
@@ -217,17 +217,18 @@ function sendMessage() {
                                  console.log(error);});
 }
 
-const input = document.body.querySelector('#message');
-input.addEventListener("keypress", function(event) {
+const inputMessage = document.body.querySelector('#message');
+const buttonSendMessage = document.querySelector('#sendMessage');
+
+inputMessage.addEventListener("keypress", function(event) {
     // If the user presses the "Enter" key on the keyboard
     if (event.key === "Enter") {
-      // Trigger the button element with a click
-      document.querySelector("footer button").click();
+      // Trigger the buttonSendMessage element with a click
+      buttonSendMessage.click();
     }
   });
 
-input.addEventListener("#message", event => {
-    const button = document.querySelector('#sendMessage');
-    button.disabled = input.value.length > 0 ? false : true;
+inputMessage.addEventListener("input", event => {
+    buttonSendMessage.disabled = inputMessage.value.length > 0 ? false : true;
 });
 

@@ -154,6 +154,11 @@ footer ion-icon {
     margin-right: 15px;
 }
 
+footer button {
+    background: none;
+    border: none;
+}
+
 .texts input {
     height: 30px;
     width: 315px;
