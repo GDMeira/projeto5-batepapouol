@@ -82,7 +82,6 @@ function getMessages() {
 function chat() {
     const timeToRenderMessagesMilliseconds = 3000;
     idRenderMessages = setInterval(getMessages, timeToRenderMessagesMilliseconds);
-    //lidar com requisições
 }
 
 function renderMessages() {
@@ -149,19 +148,19 @@ function renderSideBarMenu() {
     containerSideBarMenu.style.display = 'flex';
     const peopleList = containerSideBarMenu.querySelector('ul');
     peopleList.innerHTML = `
-                            <li class="selectedPerson" onclick="selectPerson(this)">
+                            <li class="selectedPerson" onclick="selectPerson(this)" data-test="all">
                                 <ion-icon name="people"></ion-icon>
                                 <h3>Todos</h3>
-                                <ion-icon name="checkmark-outline" class="check"></ion-icon>
+                                <ion-icon name="checkmark-outline" class="check" data-test="check"></ion-icon>
                             </li>
     `;
 
     nameListPeopleOnline.data.forEach(person => {
         peopleList.innerHTML += `
-                            <li onclick="selectPerson(this)">
+                            <li onclick="selectPerson(this)" data-test="participant">
                                 <ion-icon name="person-circle"></ion-icon>
                                 <h3>${person.name}</h3>
-                                <ion-icon name="checkmark-outline" class="check"></ion-icon>
+                                <ion-icon name="checkmark-outline" class="check" data-test="check"></ion-icon>
                             </li>
         `;
     })

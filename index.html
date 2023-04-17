@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,8 +17,8 @@
     <div class="login">
         <img class="logo" src="./images/logo2.svg" alt="logoUOL">
         <div class="acess">
-            <input type="text" id="nickname" placeholder="Digite seu nome" >
-            <button disabled="disabled" id="acessChat" onclick="acessChat()">Entrar</button>
+            <input type="text" id="nickname" placeholder="Digite seu nome" data-test="input-name">
+            <button disabled="disabled" id="acessChat" onclick="acessChat()" data-test="send-name">Entrar</button>
         </div>
 
         <div class="waiting">
@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <div class="container-side-bar-menu">
+    <div class="container-side-bar-menu" data-test="overlay">
         <div class="close" onclick="closeSideBar()"></div>
         <div class="side-bar-menu slide-left">
             <h2>Escolha um contato para enviar mensagem:</h2>
@@ -37,15 +37,15 @@
 
             <h2>Escolha a visibilidade:</h2>
             <ul>
-                <li class="selectedType" onclick="selectType(this)">
+                <li class="selectedType" onclick="selectType(this)" data-test="public">
                     <ion-icon name="lock-open"></ion-icon>
                     <h3>Público</h3>
-                    <ion-icon name="checkmark-outline" class="check"></ion-icon>
+                    <ion-icon name="checkmark-outline" class="check" data-test="check"></ion-icon>
                 </li>
-                <li onclick="selectType(this)">
+                <li onclick="selectType(this)" data-test="private">
                     <ion-icon name="lock-closed"></ion-icon>
                     <h3>Reservadamente</h3>
-                    <ion-icon name="checkmark-outline" class="check"></ion-icon>
+                    <ion-icon name="checkmark-outline" class="check" data-test="check"></ion-icon>
                 </li>
             </ul>
         </div>
@@ -53,7 +53,9 @@
 
     <header>
         <img src="./images/logo2.svg" alt="logoUOL">
-        <ion-icon name="people" onclick="showSideBarMenu()"></ion-icon>
+        <button onclick="showSideBarMenu()" data-test="open-participants">
+            <ion-icon name="people"></ion-icon>
+        </button>
     </header>
 
     <main>
@@ -65,7 +67,7 @@
     <footer>
         <div class="texts">
             <input id="message" type="text" placeholder="Escreva aqui..." ddata-test="input-message">
-            <h3>Enviando para Todos (publicamente)</h3>
+            <h3 data-test="recipient">Enviando para Todos (publicamente)</h3>
         </div>
         <button id="sendMessage" disabled="disabled" onclick="sendMessage()" data-test="send-message">
             <ion-icon name="paper-plane-outline"></ion-icon>

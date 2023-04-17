@@ -91,6 +91,11 @@ header ion-icon {
     margin-right: 22px;
 }
 
+header button {
+    background: none;
+    border: none;
+}
+
 main {
     height: auto;
     padding-top: 105px;
