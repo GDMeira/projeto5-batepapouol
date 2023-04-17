@@ -1,7 +1,7 @@
 //initial configs
 axios.defaults.headers.common['Authorization'] = 'Vak8ZeLiKi68KIDffThdHIKq';
 
-document.body.querySelector("#nickname").addEventListener("input", checkNickname);
+document.body.querySelector("#nickname").addEventListener(".login input", checkNickname);
 let nickname = '';
 let idStayOnline = -1;
 let idRenderMessages = -1;
@@ -92,7 +92,7 @@ function renderMessages() {
     messages.data.forEach(message => {
         if (message.type === 'status'){
             containerMessages.innerHTML += `
-            <li>
+            <li data-test="message">
                 <p class="container-message">
                     <span class="time">(${message.time}) </span> 
                     <span class="bold">${message.from}</span> ${message.text}
@@ -101,7 +101,7 @@ function renderMessages() {
             `;
         } else if (message.type === 'message'){
             containerMessages.innerHTML += `
-            <li>
+            <li data-test="message">
                 <p class="container-message">
                     <span class="time">(${message.time}) </span>
                     <span class="bold">${message.from}</span> para 
@@ -111,7 +111,7 @@ function renderMessages() {
             `;
         } else {
             containerMessages.innerHTML += `
-            <li>
+            <li data-test="message">
             <p class="container-message">
             <span class="time">(${message.time}) </span>
             <span class="bold">${message.from}</span> reservadamente para 
@@ -130,9 +130,6 @@ function renderMessages() {
 
 function showSideBarMenu() {
     getPeopleOnline();
-
-    //select person (todos come selected as default)
-    //
 }
 
 function getPeopleOnline() {
@@ -146,6 +143,8 @@ function getPeopleOnline() {
 }
 
 function renderSideBarMenu() {
+    sendMessageTo = 'Todos';
+    sendMessageType = 'message';
     const containerSideBarMenu = document.querySelector('.container-side-bar-menu');
     containerSideBarMenu.style.display = 'flex';
     const peopleList = containerSideBarMenu.querySelector('ul');
@@ -172,6 +171,9 @@ function renderSideBarMenu() {
 function closeSideBar() {
     const containerSideBarMenu = document.querySelector('.container-side-bar-menu');
     containerSideBarMenu.style.display = 'none';
+
+    const messageType = sendMessageType === 'Público' ? 'publicamente' : 'reservadamente';
+    document.querySelector('footer h3').innerHTML = `Enviando mensagem para ${sendMessageTo} (${messageType})`;
 }
 
 function selectPerson(option) {
@@ -190,4 +192,42 @@ function selectType(option) {
     sendMessageType = option.querySelector('h3').textContent;
 }
 
+function sendMessage() {
+    let textMessage = document.body.querySelector("#message").value;
+    let messageType;
+    if (sendMessageType === 'Público'|| sendMessageType === 'message') {
+        messageType = 'message';
+    } else {
+        messageType = 'private_message';
+    }
+    const message = {
+        from: nickname,
+        to: sendMessageTo,
+        text: textMessage,
+        type: messageType
+    }
+    console.log(message);
+
+    const promise = axios.post('https://mock-api.driven.com.br/api/vm/uol/messages', message);
+    promise.then(() => document.body.querySelector("#message").value = '');
+    promise.catch(error => {
+                            alert(`Não foi possível enviar a mensagens.
+                                 \n status ${error.response.status}\n 
+                                 ${error.response.statusText}`);
+                                 console.log(error);});
+}
+
+const input = document.body.querySelector('#message');
+input.addEventListener("keypress", function(event) {
+    // If the user presses the "Enter" key on the keyboard
+    if (event.key === "Enter") {
+      // Trigger the button element with a click
+      document.querySelector("footer button").click();
+    }
+  });
+
+input.addEventListener("#message", event => {
+    const button = document.querySelector('#sendMessage');
+    button.disabled = input.value.length > 0 ? false : true;
+});
 

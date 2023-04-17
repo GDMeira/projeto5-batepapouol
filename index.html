@@ -64,10 +64,13 @@
 
     <footer>
         <div class="texts">
-            <input id="message" type="text" placeholder="Escreva aqui...">
-            <h3>Enviando para </h3>
+            <input id="message" type="text" placeholder="Escreva aqui..." ddata-test="input-message">
+            <h3>Enviando para Todos (publicamente)</h3>
         </div>
-        <ion-icon name="paper-plane-outline" onclick="sendMessage()"></ion-icon>
+        <button id="sendMessage" disabled="disabled" onclick="sendMessage()">
+            <ion-icon name="paper-plane-outline"></ion-icon>
+        </button>
+        
     </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
