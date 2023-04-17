@@ -54,9 +54,8 @@ function connectionError(error) {
     document.querySelector('.acess').style.display = 'flex';
     document.querySelector('.waiting').style.display = 'none';
 
-    if (idStayOnline !== -1) {
-        clearInterval(idStayOnline);
-    }
+    stopRequisitions();
+    window.location.reload();
 }
 
 function stayOnline() {
@@ -75,9 +74,13 @@ function getMessages() {
     promise.then(m => {
         messages = m;
         renderMessages();});
-    promise.catch(error => alert(`Não foi possível carregar as mensagens.
+    promise.catch(error => {
+                            alert(`Não foi possível carregar as mensagens.
                                  \n status ${error.response.status}\n 
-                                 ${error.response.statusText}`));
+                                 ${error.response.statusText}`);
+                            stopRequisitions();
+                            window.location.reload();    
+                            });
 }
 
 function chat() {
@@ -131,14 +134,17 @@ function renderMessages() {
 }
 
 function showSideBarMenu() {
+    const containerSideBarMenu = document.querySelector('.container-side-bar-menu');
+    containerSideBarMenu.style.display = 'flex';
     getPeopleOnline();
 }
 
 function getPeopleOnline() {
     const promise = axios.get('https://mock-api.driven.com.br/api/vm/uol/participants');
     promise.then((list) => {
-        nameListPeopleOnline = list;
-        renderSideBarMenu();});
+                            nameListPeopleOnline = list;
+                            renderSideBarMenu();
+                            });
     promise.catch(error => alert(`Não foi possível carregar a lista de pessoas.
                                  \n status ${error.response.status}\n 
                                  ${error.response.statusText}`));
@@ -148,7 +154,6 @@ function renderSideBarMenu() {
     sendMessageTo = 'Todos';
     sendMessageType = 'message';
     const containerSideBarMenu = document.querySelector('.container-side-bar-menu');
-    containerSideBarMenu.style.display = 'flex';
     const peopleList = containerSideBarMenu.querySelector('ul');
     peopleList.innerHTML = `
                             <li class="selectedPerson" onclick="selectPerson(this)" data-test="all">
@@ -216,7 +221,9 @@ function sendMessage() {
                             alert(`Não foi possível enviar a mensagens.
                                  \n status ${error.response.status}\n 
                                  ${error.response.statusText}`);
-                                 console.log(error);});
+                            stopRequisitions();
+                            window.location.reload();
+                            });
 }
 
 const inputMessage = document.body.querySelector('#message');
@@ -234,3 +241,8 @@ inputMessage.addEventListener("input", event => {
     buttonSendMessage.disabled = inputMessage.value.length > 0 ? false : true;
 });
 
+function stopRequisitions(){
+     clearInterval(idStayOnline);
+     clearInterval(idRenderMessages);
+     clearInterval(idGetPeopleOnline);
+}
