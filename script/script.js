@@ -5,6 +5,7 @@ document.body.querySelector("#nickname").addEventListener("input", checkNickname
 let nickname = '';
 let idStayOnline = -1;
 let idRenderMessages = -1;
+let idGetPeopleOnline = -1;
 let messages;
 let nameListPeopleOnline;
 let sendMessageTo = 'Todos';
@@ -82,6 +83,8 @@ function getMessages() {
 function chat() {
     const timeToRenderMessagesMilliseconds = 3000;
     idRenderMessages = setInterval(getMessages, timeToRenderMessagesMilliseconds);
+    const timeToGetPeopleOnlineMilliseconds = 10000;
+    idGetPeopleOnline = setInterval(getPeopleOnline, timeToGetPeopleOnlineMilliseconds);
 }
 
 function renderMessages() {
