@@ -1,5 +1,5 @@
 //initial configs
-axios.defaults.headers.common['Authorization'] = 'Vak8ZeLiKi68KIDffThdHIKq';
+axios.defaults.headers.common['Authorization'] = '6egTHlqTKMxEUcF23T3ePOB9';
 
 document.body.querySelector("#nickname").addEventListener("input", checkNickname);
 let nickname = '';
@@ -139,11 +139,26 @@ function showSideBarMenu() {
     getPeopleOnline();
 }
 
+function isRecipientOnline() {
+    const peopleOnline = nameListPeopleOnline.data;
+    return peopleOnline.some(person => person.name === sendMessageTo);
+}
+
+function selectRecipient() {
+    if (sendMessageTo !== 'Todos' && isRecipientOnline()) {
+        const index = nameListPeopleOnline.data.findIndex(person => person.name === sendMessageTo) + 1; //the first one is Todos
+        document.querySelector(`.side-bar-menu li:nth-child(${index + 1})`).click(); //+1 because de first have index 1
+    } else {
+        sendMessageTo = 'Todos';
+    }
+}
+
 function getPeopleOnline() {
     const promise = axios.get('https://mock-api.driven.com.br/api/vm/uol/participants');
     promise.then((list) => {
                             nameListPeopleOnline = list;
                             renderSideBarMenu();
+                            selectRecipient();
                             });
     promise.catch(error => alert(`Não foi possível carregar a lista de pessoas.
                                  \n status ${error.response.status}\n 
@@ -151,8 +166,6 @@ function getPeopleOnline() {
 }
 
 function renderSideBarMenu() {
-    sendMessageTo = 'Todos';
-    sendMessageType = 'message';
     const containerSideBarMenu = document.querySelector('.container-side-bar-menu');
     const peopleList = containerSideBarMenu.querySelector('ul');
     peopleList.innerHTML = `
@@ -215,8 +228,11 @@ function sendMessage() {
     }
 
     const promise = axios.post('https://mock-api.driven.com.br/api/vm/uol/messages', message);
+
     promise.then(() => {
-                        document.body.querySelector("#message").value = '';
+                        let inputMessage = document.body.querySelector("#message");
+                        inputMessage.value = '';
+                        inputMessage.focus()
                         getMessages();
                         });
     promise.catch(error => {
